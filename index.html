@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Bhuyashi ♡ Calligraphy + Games</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Allura&family=Tangerine:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;1,400&family=Inter:wght@300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#fdfaf6;color:#3f3430;overflow-x:hidden}
+.wrap{max-width:480px;margin:0 auto;min-height:100vh}
+#intro{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:30px;text-align:center;transition:0.9s cubic-bezier(.77,0,.175,1)}
+#intro.out{transform:translateY(-100vh);opacity:0}
+#intro h1{font-family:'Tangerine',cursive;font-size:80px;font-weight:700;line-height:0.9}
+#intro p{font-family:'Cormorant Garamond';font-style:italic;font-size:19px;opacity:0.5;margin-top:8px}
+.env{margin-top:42px;width:300px;height:200px;position:relative;cursor:pointer}
+.env-bg{width:100%;height:100%;background:#fff;border:1px solid #efe8df;border-radius:4px;box-shadow:0 24px 48px rgba(0,0,0,0.06)}
+.env-flap{position:absolute;top:0;left:0;width:100%;height:50%;background:#fff8ef;transform-origin:top;transition:0.7s;clip-path:polygon(0 0,100% 0,50% 100%);border-bottom:1px solid #efe8df;z-index:2}
+.env.open .env-flap{transform:rotateX(180deg);opacity:0}
+.env-letter{position:absolute;left:12px;right:12px;top:28%;height:82%;background:#fff;display:flex;align-items:center;justify-content:center;border:1px solid #f5efe6;transition:0.9s;z-index:1}
+.env.open .env-letter{transform:translateY(-64%)}
+.seal{width:52px;height:52px;background:#c89aa6;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Great Vibes';font-size:24px;animation:pulse 1.7s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.hint{margin-top:26px;font-size:11px;letter-spacing:0.32em;text-transform:uppercase;opacity:0.32;font-family:'Inter'}
+
+#main{display:none;opacity:0;transition:0.9s;padding-bottom:80px}
+#main.show{display:block;opacity:1}
+.hero{padding:58px 26px 8px;text-align:center}
+.hero .eyebrow{font-family:'Inter';font-size:10px;letter-spacing:0.45em;text-transform:uppercase;opacity:0.32}
+.hero h2{font-family:'Tangerine';font-size:66px;font-weight:700;margin-top:8px;line-height:0.9}
+.line{width:56px;height:1px;background:#d9c5b8;margin:16px auto}
+
+.paper{margin:14px 14px 0;background:#fffdf9;background-image:radial-gradient(#f5efe6 0.8px, transparent 0.8px);background-size:22px 22px;border:1px solid #efe8df;border-radius:4px;padding:36px 26px 40px;box-shadow:0 18px 50px rgba(0,0,0,0.05);position:relative}
+.paper:before{content:'';position:absolute;left:38px;top:0;bottom:0;width:1px;background:rgba(220,180,160,0.22)}
+.calligraphy{font-family:'Allura',cursive;font-size:31px;line-height:1.55;text-align:left;white-space:pre-line;color:#4a3f3a}
+.signature{margin-top:26px;text-align:right}
+.signature .name{font-family:'Great Vibes',cursive;font-size:40px}
+.signature .place{font-family:'Cormorant Garamond';font-style:italic;font-size:15px;opacity:0.55;margin-top:4px}
+
+.card{margin:18px 14px 0;background:#fff;border:1px solid #f5efe6;border-radius:20px;padding:26px;box-shadow:0 14px 40px rgba(0,0,0,0.03)}
+.card-title{font-family:'Tangerine';font-size:36px;font-weight:700;margin-bottom:6px}
+.card-sub{font-family:'Inter';font-size:10px;letter-spacing:0.35em;text-transform:uppercase;opacity:0.4;margin-bottom:16px}
+.cake-wrap{text-align:center}
+.candles{display:flex;gap:26px;justify-content:center;margin-bottom:-2px}
+.candle{width:8px;height:32px;background:#fdfaf6;border:1px solid #efe8df;border-radius:8px;position:relative}
+.flame{position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:10px;height:13px;background:radial-gradient(ellipse at center,#ffe8a0 0%,#ff8a5c 100%);border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;animation:flicker .22s infinite alternate}
+.flame.off{opacity:0;transform:translateX(-50%) scale(0);transition:.6s}
+@keyframes flicker{from{transform:translateX(-50%) scaleY(1)}to{transform:translateX(-50%) scaleY(1.22)}}
+.cake{margin:0 auto;width:150px;height:16px;background:#fff;border:1px solid #efe8df;border-radius:20px}
+.cake2{margin:0 auto;width:150px;height:58px;background:#fde6e0;border:1px solid #f5d8cf;border-top:0;border-radius:0 0 18px 18px;position:relative}
+.cake2:after{content:'~ ~ ~';position:absolute;top:10px;left:0;right:0;text-align:center;letter-spacing:7px;opacity:.22;font-size:12px}
+.plate{margin:10px auto 0;width:180px;height:10px;background:#fdfaf6;border:1px solid #f5efe6;border-radius:50%}
+.wish{font-family:'Great Vibes';font-size:28px;margin-top:12px;opacity:0.7}
+
+/* GAMES */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.game{border-radius:16px;background:#fdf8f2;border:1px dashed #e8d5c8;padding:18px 12px;text-align:center;cursor:pointer;transition:0.3s}
+.game:hover{transform:translateY(-2px);background:#fff5ef}
+.game span{font-size:26px;display:block}
+.game b{font-family:'Inter';font-size:9px;letter-spacing:0.22em;text-transform:uppercase;margin-top:8px;display:block;opacity:0.6}
+.game p{font-family:'Great Vibes';font-size:20px;margin-top:4px}
+.scratchWrap{position:relative;width:100%;height:150px;background:linear-gradient(135deg,#fde6e0,#fff2e8);border-radius:14px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.scratchCover{position:absolute;inset:0;background:#e8d5c8;display:flex;align-items:center;justify-content:center;font-family:'Inter';font-size:11px;letter-spacing:0.28em;text-transform:uppercase;transition:0.6s;cursor:pointer;z-index:2}
+.scratchCover.hide{opacity:0;pointer-events:none;transform:scale(1.1)}
+.scratchText{font-family:'Allura';font-size:26px;padding:10px;text-align:center}
+.memGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.memCard{aspect-ratio:1;background:#fdfaf6;border:1px solid #efe8df;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;transition:0.3s}
+.memCard.flip{background:#fff}
+.memCard.matched{background:#e8f5e9;border-color:#c8e6c9;pointer-events:none}
+.wheel{width:150px;height:150px;border-radius:50%;border:4px solid #fff;box-shadow:0 10px 28px rgba(0,0,0,0.06);margin:0 auto;background:conic-gradient(#fde6e0 0 60deg,#fff2cc 60deg 120deg,#e0e7ff 120deg 180deg,#d1fae5 180deg 240deg,#ffe4e6 240deg 300deg,#f3e8ff 300deg 360deg);transition:transform 3s cubic-bezier(.17,.67,.16,1.02)}
+input.code{width:100%;padding:12px 14px;border:1px solid #efe8df;border-radius:12px;margin-top:10px;font-family:'Inter';letter-spacing:0.3em;text-align:center}
+.progress{height:5px;background:#f5efe6;border-radius:10px;overflow:hidden;margin-top:12px}
+.fill{height:100%;background:#c89aa6;width:0%;transition:0.4s}
+.music{position:fixed;bottom:20px;right:20px;width:42px;height:42px;background:#fff;border:1px solid #efe8df;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,0,0,.08);cursor:pointer;z-index:50}
+.confetti{position:fixed;top:-10px;pointer-events:none;animation:fall linear forwards;z-index:100}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+.modal{position:fixed;inset:0;background:rgba(253,250,246,.94);backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center;z-index:99;padding:20px}
+.modal-box{background:#fff;border:1px solid #efe8df;border-radius:22px;padding:28px;max-width:380px;width:100%;box-shadow:0 30px 60px rgba(0,0,0,.1)}
+.btn{margin-top:18px;background:#4a3f3a;color:#fff;border:0;padding:12px 22px;border-radius:100px;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;cursor:pointer;font-family:'Inter';width:100%}
+</style>
+</head>
+<body>
+<div class="wrap">
+<audio id="audio" loop><source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a650f6.mp3?filename=happy-birthday-11293.mp3"></audio>
+<div class="music" id="music" onclick="toggleMusic()">♪</div>
+
+<div id="intro">
+<h1>bhuyashi</h1>
+<p>my sister ♡ — handwritten + games</p>
+<div class="env" id="env" onclick="openLetter()"><div class="env-bg"></div><div class="env-flap"></div><div class="env-letter"><div class="seal">♡</div></div></div>
+<div class="hint">tap to open — cake + 6 games inside</div>
+</div>
+
+<div id="main">
+<div class="hero">
+<div class="eyebrow">NIT ROURKELA • INK ON PAPER • FOREVER SISTER</div>
+<h2>happy birthday</h2>
+<div class="line"></div>
+</div>
+
+<!-- CAKE TO BLOW -->
+<div class="card cake-wrap" onclick="blow()">
+<div class="card-sub">Blow the candles — make a wish</div>
+<div class="card-title" style="font-size:32px">blow me, bhuyashi ♡</div>
+<div class="candles" style="margin-top:12px"><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div></div>
+<div class="cake"></div><div class="cake2"></div><div class="plate"></div>
+<div class="wish" id="wish">tap candles or blow into mic</div>
+<div class="progress"><div class="fill" id="prog"></div></div>
+</div>
+
+<!-- LETTER IN CALLIGRAPHY -->
+<div class="paper">
+<div class="calligraphy">🌷 Happy Birthday, Bhuyashi! 🤍
+
+Some people enter our lives unexpectedly, 
+and with time, they become a beautiful 
+part of our journey. 
+
+Meeting you at NIT Rourkela was one of 
+those unexpected moments that I'm 
+genuinely glad happened.
+
+Even though we haven't known each other 
+for very long, I'm happy that we've started 
+building this bond. 
+
+You've become like a new sister to me, 
+and I hope our friendship continues to 
+grow into a bond filled with trust, 
+respect, laughter, and countless 
+good memories. 🫶🏻
+
+On your special day, I wish you a life 
+full of happiness, peace, good health, 
+and success. 
+
+May you always have the courage to chase 
+your dreams, the strength to overcome 
+difficult days, and people around you who 
+genuinely care about you.
+
+I hope this new year of your life brings 
+you beautiful opportunities, little reasons 
+to smile every day, and memories that 
+you'll cherish for a long time.
+
+Stay the way you are, keep smiling, 
+and never stop believing in yourself. 
+
+I'm glad our paths crossed at NIT Rourkela, 
+and I hope this is just the beginning of 
+many wonderful memories.
+
+Happy Birthday once again, Sis! 🎂🌸</div>
+<div class="signature">
+<div class="name">With warm wishes, Ashish 🤍</div>
+<div class="place">Your NITR brother — forever</div>
+</div>
+</div>
+
+<!-- DIY GAME 1 - SCRATCH -->
+<div class="card">
+<div class="card-sub">DIY game #1 — scratch card</div>
+<div class="card-title">scratch your gift</div>
+<div class="scratchWrap" onclick="scratch()">
+<div class="scratchText">You are my favorite sister from NITR ♡ + treat pending 😁😁</div>
+<div class="scratchCover" id="scratchCover">✦ TAP TO SCRATCH ✦</div>
+</div>
+</div>
+
+<!-- DIY GAME 2 - MEMORY -->
+<div class="card">
+<div class="card-sub">DIY game #2 — memory match</div>
+<div class="card-title">match NITR memories</div>
+<div class="memGrid" id="memGrid"></div>
+<div id="memMsg" style="display:none;margin-top:10px;text-align:center;font-family:'Great Vibes';font-size:26px">You won! You remember us ♡</div>
+</div>
+
+<!-- DIY GAME 3 - SPIN -->
+<div class="card" style="text-align:center">
+<div class="card-sub">DIY game #3 — spin the wheel</div>
+<div class="card-title">what is Bhuyashi today?</div>
+<div style="position:relative;margin-top:14px"><div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%)">▼</div><div class="wheel" id="wheel"></div></div>
+<button class="btn" onclick="spin()" style="width:auto;padding:12px 28px;margin-top:16px">SPIN — ♡</button>
+<div id="spinRes" style="margin-top:12px;font-family:'Allura';font-size:28px;min-height:32px"></div>
+</div>
+
+<!-- DIY GAME 4 - OPEN WHEN -->
+<div class="card">
+<div class="card-sub">DIY game #4 — open when letters</div>
+<div class="card-title">for your 4 moods</div>
+<div class="grid2">
+<div class="game" onclick="openGift(1)"><span>🤩</span><b>Open when happy</b><p>cheer letter</p></div>
+<div class="game" onclick="openGift(2)"><span>😤</span><b>Open when angry</b><p>calm letter</p></div>
+<div class="game" onclick="openGift(3)"><span>😴</span><b>Open when tired</b><p>soft letter</p></div>
+<div class="game" onclick="openGift(4)"><span>✨</span><b>Open when proud</b><p>you did it</p></div>
+</div>
+</div>
+
+<!-- DIY GAME 5 - SECRET CODE -->
+<div class="card">
+<div class="card-sub">DIY game #5 — secret vault</div>
+<div class="card-title">crack the code</div>
+<p style="font-family:'Cormorant Garamond';font-style:italic;opacity:0.6;margin-bottom:8px">Hint: year we met at NITR — 2023</p>
+<input class="code" id="codeInput" maxlength="4" placeholder="----">
+<button class="btn" onclick="checkCode()">UNLOCK — ♡</button>
+<div id="codeMsg" style="display:none;margin-top:10px;text-align:center;font-family:'Great Vibes';font-size:22px"></div>
+</div>
+
+<!-- FINAL -->
+<div style="padding:28px;text-align:center">
+<button class="btn" style="background:#c89aa6" onclick="finalBurst()">FINAL FIREWORKS FOR BHUYASHI — ✨</button>
+<div style="margin-top:16px;font-family:'Inter';font-size:10px;letter-spacing:0.3em;text-transform:uppercase;opacity:0.25">Calligraphy + Cake + 6 Games — Made for Bhuyashi</div>
+</div>
+</div>
+</div>
+
+<div class="modal" id="modal" onclick="this.style.display='none'"><div class="modal-box"><h2 id="mTitle" style="font-family:'Tangerine';font-size:48px;font-weight:700"></h2><p id="mText" style="margin-top:10px;font-family:'Allura';font-size:26px;line-height:1.5;opacity:0.75"></p><button class="btn" onclick="document.getElementById('modal').style.display='none'">close ♡</button></div></div>
+
+<script>
+let audio=document.getElementById('audio'),playing=false,blown=false,progress=0;
+function updateProg(v){progress=Math.min(100,progress+v);document.getElementById('prog').style.width=progress+'%'}
+function toggleMusic(){if(playing){audio.pause();playing=false;music.innerHTML='♪'}else{audio.play().then(()=>{playing=true;music.innerHTML='♫'})}}
+function openLetter(){document.getElementById('env').classList.add('open');audio.play().then(()=>{playing=true;music.innerHTML='♫'}).catch(()=>{});setTimeout(()=>{intro.classList.add('out');setTimeout(()=>{intro.style.display='none';main.style.display='block';setTimeout(()=>{main.classList.add('show');launch(50);updateProg(10)},50)},800)},700)}
+function blow(){if(blown)return;blown=true;document.querySelectorAll('.flame').forEach(f=>f.classList.add('off'));document.getElementById('wish').innerHTML='Wish granted, my sister ♡';launch(80);updateProg(25)}
+function launch(n){for(let i=0;i<n;i++){const e=document.createElement('div');e.className='confetti';e.innerHTML=['♡','✿','✧','🎂','✨'][Math.floor(Math.random()*5)];e.style.left=Math.random()*100+'vw';e.style.fontSize=(10+Math.random()*18)+'px';e.style.opacity=.7;e.style.animationDuration=(2.5+Math.random()*3)+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),5000)}}
+function scratch(){document.getElementById('scratchCover').classList.add('hide');launch(20);updateProg(15)}
+const pairs=['📚','☕','🏠','💛','📚','☕','🏠','💛','🌅','✨','🌅','✨'];
+let flipped=[],matched=0;
+function initMem(){const g=document.getElementById('memGrid');g.innerHTML='';[...pairs].sort(()=>Math.random()-0.5).forEach(v=>{const d=document.createElement('div');d.className='memCard';d.innerHTML='?';d.dataset.val=v;d.onclick=()=>flipMem(d);g.appendChild(d)})}
+function flipMem(el){if(el.classList.contains('flip')||el.classList.contains('matched')||flipped.length>=2)return;el.classList.add('flip');el.innerHTML=el.dataset.val;flipped.push(el);if(flipped.length==2){const[a,b]=flipped;if(a.dataset.val==b.dataset.val){a.classList.add('matched');b.classList.add('matched');flipped=[];matched+=2;if(matched==pairs.length){document.getElementById('memMsg').style.display='block';launch(30);updateProg(15)}}else{setTimeout(()=>{a.classList.remove('flip');b.classList.remove('flip');a.innerHTML='?';b.innerHTML='?';flipped=[]},700)}}}
+initMem();
+let spinning=false;const spinTexts=['My Sister Forever','Cutest Human','Sunshine Girl','Main Character Energy','Pure Heart ♡'];
+function spin(){if(spinning)return;spinning=true;document.getElementById('spinRes').innerHTML='';const w=document.getElementById('wheel');w.style.transform=`rotate(${720+Math.random()*1440}deg)`;setTimeout(()=>{document.getElementById('spinRes').innerHTML=spinTexts[Math.floor(Math.random()*spinTexts.length)]+' — ♡';launch(20);updateProg(10);spinning=false},3100)}
+function openGift(n){const t=document.getElementById('mTitle'),tx=document.getElementById('mText');
+if(n==1){t.innerHTML='Open when happy';tx.innerHTML='YAY! You deserve this happiness and more. Send me that laugh voice note, I want to keep it.'}
+if(n==2){t.innerHTML='Open when angry';tx.innerHTML='Breathe. Not everyone deserves your energy. You are too pure for their nonsense. Queen energy only.'}
+if(n==3){t.innerHTML='Open when tired';tx.innerHTML='Rest, my sister. You dont have to be strong every day. I am proud of you even on slow days.'}
+if(n==4){t.innerHTML='Open when proud';tx.innerHTML='Told you! You did it! I knew you would. I am clapping for you from Rourkela!'}
+document.getElementById('modal').style.display='flex';updateProg(5)}
+function checkCode(){const v=document.getElementById('codeInput').value,msg=document.getElementById('codeMsg');if(v=='2026'||v=='2027'){msg.style.display='block';msg.innerHTML='✨ Unlocked! Promise — I will always be your NITR brother, no matter where life goes. ♡';launch(40);updateProg(15)}else{msg.style.display='block';msg.innerHTML='Wrong — hint: year we met (2026)'}}
+function finalBurst(){launch(140);mTitle.innerHTML='Happy Birthday, meri behen ♡';mText.innerHTML='You played all my games and read my calligraphy letter. That means you are truly my sister. Always your brother — Ashish.';document.getElementById('modal').style.display='flex'}
+async function initMic(){try{const s=await navigator.mediaDevices.getUserMedia({audio:true});const ctx=new(window.AudioContext||window.webkitAudioContext)();const an=ctx.createAnalyser();ctx.createMediaStreamSource(s).connect(an);const d=new Uint8Array(an.fftSize);function chk(){an.getByteFrequencyData(d);let sum=d.reduce((a,b)=>a+b,0)/d.length;if(sum>36)blow();requestAnimationFrame(chk)}chk()}catch(e){}}initMic();
+</script>
+</body>
+</html>
